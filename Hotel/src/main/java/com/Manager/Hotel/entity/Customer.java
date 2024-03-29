@@ -1,7 +1,5 @@
 package com.Manager.Hotel.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,9 +18,7 @@ import lombok.NoArgsConstructor;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String customerId;
+    private int Id;
     private String name;
-    private String email;
-    private List<Booking> bookings;
-    
+    private String email;    
 }

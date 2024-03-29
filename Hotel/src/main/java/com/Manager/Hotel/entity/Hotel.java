@@ -1,8 +1,5 @@
 package com.Manager.Hotel.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -22,8 +19,8 @@ import lombok.NoArgsConstructor;
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String hotelId;
+    private int Id;
     private String name;
-    private String address;
-    private List<Room> rooms = new ArrayList<>();
+    private String city;
+
 }

@@ -3,7 +3,10 @@ package com.Manager.Hotel.entity;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -19,9 +22,19 @@ import lombok.NoArgsConstructor;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String bookingId;
-    private String customerId;
-    private String roomId;
+    private int Id;
+    @ManyToOne
+    @JoinColumn(name = "customerId")
+    private int customerId;
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    private Room room;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
     private int noOfDays;
+    private double totalPrice;
+    private boolean paymentStatus;
+    private boolean checkInStatus;
+    private boolean checkOutStatus;
+    
 }

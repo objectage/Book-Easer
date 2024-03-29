@@ -3,6 +3,12 @@ package com.Manager.Hotel.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.Manager.Hotel.entity.Hotel;
 
-public interface HotelRepository extends JpaRepository<Hotel, String> {
+import java.util.List;
+
+public interface HotelRepository extends JpaRepository<Hotel, Integer> {
+
+    List<Hotel> findByName(String name);
+
+    List<Hotel> findByCity(String city);
 
 }

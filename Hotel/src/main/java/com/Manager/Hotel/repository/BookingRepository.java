@@ -3,6 +3,14 @@ package com.Manager.Hotel.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.Manager.Hotel.entity.Booking;
 
-public interface BookingRepository extends JpaRepository<Booking, String> {
+import java.util.List;
+
+public interface BookingRepository extends JpaRepository<Booking, Integer> {
+
+    List<Booking> findByCustomerID(int customerID);
+
+    List<Booking> findByRoomID(int roomID);
+
+    List<Booking> findByStartDate(int startDate);
 
 }
