@@ -8,6 +8,8 @@ import java.util.List;
 import com.Manager.Hotel.repository.BookingRepository;
 import com.Manager.Hotel.entity.Booking;
 
+import java.util.Date;
+
 @Service
 public class BookingService {
 
@@ -42,7 +44,7 @@ public class BookingService {
         return bookingRepository.findByRoomID(roomID);
     }
 
-    public List<Booking> getBookingsByStartDate(int startDate) {
+    public List<Booking> getBookingsByStartDate(Date startDate) {
         return bookingRepository.findByStartDate(startDate);
     }
 

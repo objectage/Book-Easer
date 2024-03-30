@@ -36,5 +36,25 @@ public class Booking {
     private boolean paymentStatus;
     private boolean checkInStatus;
     private boolean checkOutStatus;
+
+    public Boolean getPaymentStatus() {
+        return paymentStatus;
+    }   
+
+    public Boolean getCheckInStatus() {
+        return checkInStatus;
+    }
+
+    public Boolean getCheckOutStatus() {
+        return checkOutStatus;
+    }
+
+    public int getRoomID() {
+        return room.getId();
+    }
+
+    public int getCustomerID() {
+        return customerId;
+    }
     
 }
