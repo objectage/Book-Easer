@@ -22,12 +22,12 @@ import lombok.NoArgsConstructor;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Long id;
     @ManyToOne
-    @JoinColumn(name = "customerId")
-    private int customerId;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
     @ManyToOne
-    @JoinColumn(name = "roomId")
+    @JoinColumn(name = "room_id")
     private Room room;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
@@ -49,12 +49,12 @@ public class Booking {
         return checkOutStatus;
     }
 
-    public int getRoomID() {
+    public Long getRoomID() {
         return room.getId();
     }
 
-    public int getCustomerID() {
-        return customerId;
+    public Long getCustomerID() {
+        return customer.getId();
     }
     
 }

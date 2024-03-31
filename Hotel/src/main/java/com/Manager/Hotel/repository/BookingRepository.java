@@ -6,11 +6,11 @@ import com.Manager.Hotel.entity.Booking;
 import java.util.List;
 import java.util.Date;
 
-public interface BookingRepository extends JpaRepository<Booking, Integer> {
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    List<Booking> findByCustomerID(int customerID);
+    List<Booking> findByCustomerId(Long customerId);
 
-    List<Booking> findByRoomID(int roomID);
+    List<Booking> findByRoomId(Long roomId);
 
     List<Booking> findByStartDate(Date startDate);
 

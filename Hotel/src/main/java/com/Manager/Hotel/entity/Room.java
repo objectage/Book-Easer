@@ -20,10 +20,10 @@ import lombok.NoArgsConstructor;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Long id;
     @OneToOne
     @JoinColumn(name = "hotelID")
-    private int hotelID;
+    private Hotel hotel;
     private String type;
     private boolean availability;
     private double price;   

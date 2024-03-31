@@ -7,7 +7,10 @@ import java.util.List;
 
 import com.Manager.Hotel.repository.BookingRepository;
 import com.Manager.Hotel.entity.Booking;
-
+// import com.Manager.Hotel.entity.Customer;    
+// import com.Manager.Hotel.entity.Room;
+// import com.Manager.Hotel.service.RoomService;
+// import com.Manager.Hotel.service.CustomerService;
 import java.util.Date;
 
 @Service
@@ -24,11 +27,11 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
-    public Booking getBooking(int id) {
+    public Booking getBooking(Long id) {
         return bookingRepository.findById(id).orElse(null);
     }
 
-    public void deleteBooking(int id) {
+    public void deleteBooking(Long id) {
         bookingRepository.deleteById(id);
     }
 
@@ -36,19 +39,19 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public List<Booking> getBookingsByCustomerID(int customerID) {
-        return bookingRepository.findByCustomerID(customerID);
+    public List<Booking> getBookingsByCustomerID(Long customerID) {
+        return bookingRepository.findByCustomerId(customerID);
     }
 
-    public List<Booking> getBookingsByRoomID(int roomID) {
-        return bookingRepository.findByRoomID(roomID);
+    public List<Booking> getBookingsByRoomID(Long roomID) {
+        return bookingRepository.findByRoomId(roomID);
     }
 
     public List<Booking> getBookingsByStartDate(Date startDate) {
         return bookingRepository.findByStartDate(startDate);
     }
 
-    public Booking updateBookingPaymentStatus(int id, Boolean paymentStatus) {
+    public Booking updateBookingPaymentStatus(Long id, Boolean paymentStatus) {
         Booking booking = bookingRepository.findById(id).orElse(null);
         if (booking != null) {
             booking.setPaymentStatus(paymentStatus);
@@ -57,7 +60,7 @@ public class BookingService {
         return null;
     }
 
-    public Booking updateBookingCheckInStatus(int id, Boolean checkInStatus) {
+    public Booking updateBookingCheckInStatus(Long id, Boolean checkInStatus) {
         Booking booking = bookingRepository.findById(id).orElse(null);
         if (booking != null) {
             booking.setCheckInStatus(checkInStatus);
@@ -66,7 +69,7 @@ public class BookingService {
         return null;
     }
 
-    public Booking updateBookingCheckOutStatus(int id, Boolean checkOutStatus) {
+    public Booking updateBookingCheckOutStatus(Long id, Boolean checkOutStatus) {
         Booking booking = bookingRepository.findById(id).orElse(null);
         if (booking != null) {
             booking.setCheckOutStatus(checkOutStatus);
@@ -75,7 +78,7 @@ public class BookingService {
         return null;
     }
 
-    public Booking updateBookingTotalPrice(int id, double totalPrice) {
+    public Booking updateBookingTotalPrice(Long id, double totalPrice) {
         Booking booking = bookingRepository.findById(id).orElse(null);
         if (booking != null) {
             booking.setTotalPrice(totalPrice);
@@ -85,7 +88,7 @@ public class BookingService {
     }
 
     @Transactional
-    public Booking calculateTotalPrice(int bookingId) {
+    public Booking calculateTotalPrice(Long bookingId) {
         Booking booking = bookingRepository.findById(bookingId).orElse(null);
         if (booking != null && booking.getRoom() != null) {
             double totalPrice = booking.getNoOfDays() * booking.getRoom().getPrice();

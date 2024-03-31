@@ -5,7 +5,7 @@ import com.Manager.Hotel.entity.Customer;
 
 import java.util.List;
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     List<Customer> findByName(String name);
 

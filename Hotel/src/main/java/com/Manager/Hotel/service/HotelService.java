@@ -21,11 +21,11 @@ public class HotelService {
         return hotelRepository.save(hotel);
     }
 
-    public Hotel getHotel(int id) {
+    public Hotel getHotel(Long id) {
         return hotelRepository.findById(id).orElse(null);
     }
 
-    public void deleteHotel(int id) {
+    public void deleteHotel(Long id) {
         hotelRepository.deleteById(id);
     }
 

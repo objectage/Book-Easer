@@ -5,7 +5,7 @@ import com.Manager.Hotel.entity.Hotel;
 
 import java.util.List;
 
-public interface HotelRepository extends JpaRepository<Hotel, Integer> {
+public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
     List<Hotel> findByName(String name);
 

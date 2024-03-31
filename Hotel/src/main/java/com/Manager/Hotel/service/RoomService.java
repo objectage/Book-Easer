@@ -20,11 +20,11 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
-    public Room getRoom(int id) {
+    public Room getRoom(Long id) {
         return roomRepository.findById(id).orElse(null);
     }
 
-    public void deleteRoom(int id) {
+    public void deleteRoom(Long id) {
         roomRepository.deleteById(id);
     }
 
@@ -48,7 +48,7 @@ public class RoomService {
         return roomRepository.findByTypeAndAvailability(type, availability);
     }
 
-    public Room updateRoomAvailability(int id, Boolean availability) {
+    public Room updateRoomAvailability(Long id, Boolean availability) {
         Room room = roomRepository.findById(id).orElse(null);
         if (room != null) {
             room.setAvailability(availability);
