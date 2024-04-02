@@ -21,25 +21,25 @@ public class CustomerController {
     @RequestMapping("/customer")
     public String customer(Model model) {
         model.addAttribute("customer", customerService.getAllCustomers());
-        return "customer";
+        return "Customer/customer";
     }
 
     @RequestMapping(value="/customer/name", method = RequestMethod.GET)
     public String showCustomerByNameForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "customer_by_name";
+        return "Customer/customer_by_name";
     }
 
     @RequestMapping(value="/customer/name", method = RequestMethod.POST)
     public String getCustomerByName(Model model, @ModelAttribute("customer") Customer customer) {
         model.addAttribute("customer", customerService.getCustomersByName(customer.getName()));
-        return "customer";
+        return "Customer/customer";
     }
 
     @RequestMapping(value="/customer/new", method = RequestMethod.GET)
     public String showNewCustomerForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "new_customer";
+        return "Customer/new_customer";
     }
 
     @RequestMapping(value="/customer/new", method = RequestMethod.POST)
@@ -51,7 +51,7 @@ public class CustomerController {
     @RequestMapping(value="/customer/edit", method = RequestMethod.GET)
     public String showEditCustomerForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "edit_customer";
+        return "Customer/edit_customer";
     }
 
     @RequestMapping(value="/customer/edit", method = RequestMethod.POST)
@@ -63,7 +63,7 @@ public class CustomerController {
     @RequestMapping(value="/customer/delete", method = RequestMethod.GET)
     public String showDeleteCustomerForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "delete_customer";
+        return "Customer/delete_customer";
     }
 
     @RequestMapping(value="/customer/delete", method = RequestMethod.POST)

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import com.Manager.Hotel.repository.RoomRepository;
+import com.Manager.Hotel.repository.HotelRepository;
+import com.Manager.Hotel.entity.Hotel;
 import com.Manager.Hotel.entity.Room;
 
 @Service
@@ -12,7 +14,13 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public Room saveRoom(Room room) {
+    @Autowired
+    private HotelRepository hotelRepository;
+
+    public Room saveRoom(Room room, Long hotelId) {
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel not found with id " + hotelId));
+        
+        room.setHotel(hotel);
         return roomRepository.save(room);
     }
 
