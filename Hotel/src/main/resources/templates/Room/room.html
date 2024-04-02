@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rooms</title>
+</head>
+<body>
+<h1>Rooms</h1>
+<div th:if="${room != null}">
+    <ul>
+        <li th:each="room : ${room}">
+            Type: <span th:text="${room.type}"></span>,
+            Availability: <span th:text="${room.availability ? 'Available' : 'Unavailable'}"></span>,
+            Price: <span th:text="${room.price}"></span>
+        </li>
+    </ul>
+</div>
+<a th:href="@{/room/new}">Add New Room</a>
+<a th:href="@{/room/available}">View Available Rooms</a>
+<a th:href="@{/room/unavailable}">View Unavailable Rooms</a>
+<a th:href="@{/room/type}">Filter Rooms by Type</a>
+<a th:href="@{/room/edit}">Edit Room</a>    
+<a th:href="@{/room/delete}">Delete Room</a>
+</body>
+</html>

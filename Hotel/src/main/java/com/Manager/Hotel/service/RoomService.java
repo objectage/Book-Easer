@@ -32,7 +32,7 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public List<Room> getAvailableRooms(String status) {
+    public List<Room> getAvailableRooms(Boolean status) {
         return roomRepository.findByAvailability(status);
     }
 
@@ -44,7 +44,7 @@ public class RoomService {
         return roomRepository.findByPrice(price);
     }
 
-    public List<Room> getRoomsByTypeAndAvailability(String type, String availability) {
+    public List<Room> getRoomsByTypeAndAvailability(String type, Boolean availability) {
         return roomRepository.findByTypeAndAvailability(type, availability);
     }
 

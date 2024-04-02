@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Room</title>
+</head>
+<body>
+<h1>Delete Room</h1>
+<form th:action="@{/room/delete}" method="post">
+    <div>
+        <label for="id">Room ID:</label>
+        <input type="text" id="id" name="id" required />
+    </div>    
+    <div>
+        <button type="submit">Delete</button>
+    </div>
+</form>
+
+<a th:href="@{/room}">Return to Room List</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter Rooms by Type</title>
+</head>
+<body>
+<h1>Filter Rooms by Type</h1>
+<form th:action="@{/room/type}" th:object="${room}" method="post">
+    <div>
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type" required />
+    </div>
+    <div>
+        <button type="submit">Filter</button>
+    </div>
+</form>
+<a th:href="@{/room}">Return to Room List</a>
+</body>
+</html>

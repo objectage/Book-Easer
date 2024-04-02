@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unavailable Rooms</title>
+</head>
+<body>
+<h1>Unavailable Rooms</h1>
+<ul>
+    <li th:each="room : ${rooms}">
+        Type: <span th:text="${room.type}"></span>,
+        Price: <span th:text="${room.price}"></span>
+    </li>
+</ul>
+<a th:href="@{/room}">Return to Room List</a>
+</body>
+</html>

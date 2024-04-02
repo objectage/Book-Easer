@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    List<Room> findByAvailability(String availability);
+    List<Room> findByAvailability(Boolean availability);
 
     List<Room> findByType(String type);
 
     List<Room> findByPrice(double price);
 
-    List<Room> findByTypeAndAvailability(String type, String availability);
+    List<Room> findByTypeAndAvailability(String type, Boolean availability);
 
 }
