@@ -9,11 +9,18 @@
 <div th:if="${hotel != null}">
     <ul>
         <li th:each="hotel : ${hotel}">
+            <spam th:text="${hotel.id}">ID</spam>
             <span th:text="${hotel.name}">Hotel Name</span>,
             <span th:text="${hotel.city}">City</span>
         </li>
     </ul>
 </div>
 <a th:href="@{/hotel/new}">Add New Hotel</a>
+<a th:href="@{/hotel/edit}">Edit Hotel</a>
+<a th:href="@{/hotel/delete}">Delete hotel</a>
+<a th:href="@{/hotel/name}">Filter by hotel name</a>
+<a th:href="@{/hotel/city}">Filter by hotel city</a>
+
+
 </body>
 </html>

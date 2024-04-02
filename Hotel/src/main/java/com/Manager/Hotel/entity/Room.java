@@ -22,13 +22,11 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
-    @JoinColumn(name = "hotelID")
+    @JoinColumn(name = "hotel_iD")
     private Hotel hotel;
     private String type;
     private boolean availability;
     private double price;   
-    
-    
 }
 
 

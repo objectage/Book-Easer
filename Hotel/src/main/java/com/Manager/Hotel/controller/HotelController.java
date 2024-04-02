@@ -21,38 +21,38 @@ public class HotelController {
         @RequestMapping("/hotel")
         public String hotel(Model model) {
             model.addAttribute("hotel", hotelService.getAllHotels());
-            return "hotel";
+            return "Hotel/hotel";
         }
 
         @RequestMapping(value="/hotel/name", method = RequestMethod.GET)
         public String showHotelByNameForm(Model model) {
             model.addAttribute("hotel", new Hotel());
-            return "hotel_by_name";
+            return "Hotel/hotel_by_name";
         }
 
         @RequestMapping(value="/hotel/name", method = RequestMethod.POST)
         public String getHotelByName(Model model, @ModelAttribute("hotel") Hotel hotel) {
             model.addAttribute("hotel", hotelService.getHotelsByName(hotel.getName()));
-            return "hotel";
+            return "Hotel/hotel";
         }
 
 
         @RequestMapping(value="/hotel/city", method = RequestMethod.GET)
         public String showHotelByCityForm(Model model) {
             model.addAttribute("hotel", new Hotel());
-            return "hotel_by_city";
+            return "Hotel/hotel_by_city";
         }
 
         @RequestMapping(value="/hotel/city", method = RequestMethod.POST)
         public String getHotelByCity(Model model, @ModelAttribute("hotel") Hotel hotel) {
             model.addAttribute("hotel", hotelService.getHotelsByCity(hotel.getCity()));
-            return "hotel";
+            return "Hotel/hotel";
         }
     
         @RequestMapping(value="/hotel/new", method = RequestMethod.GET)
         public String showNewHotelForm(Model model) {
             model.addAttribute("hotel", new Hotel());
-            return "new_hotel";
+            return "Hotel/new_hotel";
         }
     
         @RequestMapping(value="/hotel/new", method = RequestMethod.POST)
@@ -64,7 +64,7 @@ public class HotelController {
         @RequestMapping(value="/hotel/edit", method = RequestMethod.GET)
         public String showEditHotelForm(Model model) {
             model.addAttribute("hotel", new Hotel());
-            return "edit_hotel";
+            return "Hotel/edit_hotel";
         }
     
         @RequestMapping(value="/hotel/edit", method = RequestMethod.POST)
@@ -76,7 +76,7 @@ public class HotelController {
         @RequestMapping(value="/hotel/delete", method = RequestMethod.GET)
         public String showDeleteHotelForm(Model model) {
             model.addAttribute("hotel", new Hotel());
-            return "delete_hotel";
+            return "Hotel/delete_hotel";
         }
     
         @RequestMapping(value="/hotel/delete", method = RequestMethod.POST)

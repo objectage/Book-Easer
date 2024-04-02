@@ -14,7 +14,11 @@ public class HotelService {
     private HotelRepository hotelRepository;
 
     public Hotel saveHotel(Hotel hotel) {
-        return hotelRepository.save(hotel);
+        Hotel hotel1=new Hotel();
+        hotel1.setId(hotel.getId());
+        hotel1.setCity(hotel.getCity());
+        hotel1.setName(hotel.getName());
+        return hotelRepository.save(hotel1);
     }
 
     public Hotel updateHotel(Hotel hotel) {
