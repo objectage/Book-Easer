@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Hotel</title>
+</head>
+<body>
+<h1>Edit Hotel</h1>
+<form th:action="@{/hotel/edit}" th:object="${hotel}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label for="name">Hotel Name:</label>
+        <input type="text" id="name" name="name" th:field="*{name}" required />
+    </div>
+    <div>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" th:field="*{city}" required />
+    </div>
+    <div>
+        <button type="submit">Update Hotel</button>
+    </div>
+</form>
+</body>
+</html>

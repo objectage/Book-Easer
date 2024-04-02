@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Hotels by Name</title>
+</head>
+<body>
+<h1>Find Hotel by Name</h1>
+<form th:action="@{/hotel/name}" th:object="${hotel}" method="post">
+    <div>
+        <label for="name">Hotel Name:</label>
+        <input type="text" id="name" name="name" th:field="*{name}" required />
+    </div>
+    <div>
+        <button type="submit">Search</button>
+    </div>
+</form>
+</body>
+</html>

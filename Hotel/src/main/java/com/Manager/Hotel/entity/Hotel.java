@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor 
 @Table(name = "hotel")
 @Entity
 public class Hotel {
