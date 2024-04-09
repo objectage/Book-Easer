@@ -38,4 +38,22 @@ public class CustomerService {
         return customerRepository.findByName(name);
     }
 
+    public Boolean checkCustomer(String name, String password) {
+        List<Customer> customers = customerRepository.findByEmail(name);
+        for (Customer customer : customers) {
+            if (customer.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Customer getCustomerByEmail(String email) {
+        List<Customer> customers = customerRepository.findByEmail(email);
+        if (customers.size() > 0) {
+            return customers.get(0);
+        }
+        return null;
+    }
+
 }

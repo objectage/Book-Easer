@@ -26,7 +26,17 @@ public class Room {
     private Hotel hotel;
     private String type;
     private boolean availability;
-    private double price;   
+    private double price;  
+    
+    public Boolean getAvailability() {
+        return availability;
+    }
+    
+    public Long getHotelId() {
+        return hotel.getId();
+    }
 }
+
+
 
 

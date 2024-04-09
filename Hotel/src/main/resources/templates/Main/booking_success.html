@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Success</title>
+</head>
+<body>
+<h1>Booking Confirmed</h1>
+<div>
+    <p>Thank you for your booking.</p>
+    <p><strong>Customer:</strong> <span th:text="${booking.customer.Name}"></span></p>
+    <p><strong>Room Type:</strong> <span th:text="${booking.room.Type}"></span></p>
+    <p><strong>Dates:</strong> <span th:text="${booking.startDate}"></span> to <span th:text="${booking.noOfDays}"></span></p>
+    <p><strong>Total Price:</strong> <span th:text="${booking.totalPrice}"></span></p>
+    <a th:href="@{/download_receipt/{bookingId}(bookingId=${booking.id})}" >Download Receipt as PDF</a>
+</div>
+<a href="/hotelmanager/home">Back to Home</a>
+</body>
+</html>

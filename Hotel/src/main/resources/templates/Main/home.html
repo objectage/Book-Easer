@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Our Hotel Management System</title>
+</head>
+<body>
+<h1>Welcome to Our Hotel Management System</h1>
+<div>
+    <ul>
+        <li th:each="hotel : ${hotel}">
+            <span th:text="${hotel.name}">Hotel Name</span>
+            <!-- Check Rooms Form -->
+            <form th:action="@{/home/room}" method="post">
+                <input type="hidden" name="hotelId" th:value="${hotel.id}" />
+                <button type="submit">Check Rooms</button>
+            </form>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
