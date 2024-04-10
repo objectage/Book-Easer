@@ -254,4 +254,9 @@ public class MainController {
         return "Main/dashboard";
     }
 
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        return "Admin/adminhome";
+    }
+
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <div>
+        <h2>Management Links</h2>
+        <ul>
+            <li><a th:href="@{/customer}">Customer Management</a></li>
+            <li><a th:href="@{/room}">Room Management</a></li>
+            <li><a th:href="@{/hotel}">Hotel Management</a></li>
+            <li><a th:href="@{/booking}">Booking Management</a></li>
+        </ul>
+    </div>
+    
+</body>
+</html>

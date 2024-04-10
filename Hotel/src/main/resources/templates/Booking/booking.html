@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Bookings</title>
+</head>
+<body>
+<h1>All Bookings</h1>
+
+<div>
+    <a th:href="@{/booking/customerID}">Filter by Customer ID</a> | 
+    <a th:href="@{/booking/roomID}">Filter by Room ID</a>
+</div>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Customer ID</th>
+            <th>Customer Email</th>
+            <th>Room Number</th>
+            <th>Start Date</th>
+            <th>Number of Days</th>
+            <th>Total Price</th>
+            <th>Check-In Status</th>
+            <th>Check-Out Status</th>
+            <th>Payment Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.id}"></td>
+            <td th:text="${booking.customer.id}"></td>
+            <td th:text="${booking.customer.email}"></td>
+            <td th:text="${booking.room.id}"> </td>
+            <td th:text="${#dates.format(booking.startDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${booking.noOfDays}"></td>
+            <td th:text="${booking.totalPrice}"></td>
+            <td th:if="${!booking.checkInStatus}">
+                <form th:action="@{/booking/checkIn/{id}(id=${booking.id})}" method="post">
+                    <button type="submit">Check In</button>
+                </form>
+            </td>
+            <td th:unless="${!booking.checkInStatus}">
+                <span>Checked In</span>
+            </td>
+        
+            <!-- Check Out Button/Status -->
+            <td th:if="${booking.checkInStatus and !booking.checkOutStatus}">
+                <form th:action="@{/booking/checkOut/{id}(id=${booking.id})}" method="post">
+                    <button type="submit">Check Out</button>
+                </form>
+            </td>
+            <td th:unless="${booking.checkInStatus and !booking.checkOutStatus}">
+                <span th:if="${booking.checkOutStatus}">Checked Out</span>
+                <span th:unless="${booking.checkInStatus or booking.checkOutStatus}">Not Checked Out</span>
+            </td>
+        
+            <!-- Payment Button/Status -->
+            <td th:if="${booking.checkOutStatus and !booking.paymentStatus}">
+                <form th:action="@{/booking/pay/{id}(id=${booking.id})}" method="post">
+                    <button type="submit">Pay</button>
+                </form>
+            </td>
+            <td th:if="${booking.paymentStatus}">
+                <span>Paid</span>
+            </td>
+            <td th:unless="${booking.checkOutStatus}">
+                <span>Not Paid</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

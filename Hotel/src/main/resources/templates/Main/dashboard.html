@@ -21,6 +21,9 @@
                     <th>Start Date</th>
                     <th>No. of Days</th>
                     <th>Total Price</th>
+                    <th>CheckIn Status</th>
+                    <th>CheckOut Status</th>
+                    <th>Payment Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,6 +34,10 @@
                     <td th:text="${booking.startDate}"></td>
                     <td th:text="${booking.noOfDays}"></td>
                     <td th:text="${booking.totalPrice}"></td>
+                    <td th:text="${booking.checkInStatus} ? 'Checked In' : 'Not Checked In'"></td>
+                    <td th:text="${booking.checkOutStatus} ? 'Checked Out' : 'Not Checked Out'"></td>
+                    <td th:text="${booking.paymentStatus} ? 'Paid' : 'Not Paid'"></td>
+
                     <td>
                         <a th:href="@{/booking_success/{id}(id=${booking.id})}">View Details</a>
                     </td>
