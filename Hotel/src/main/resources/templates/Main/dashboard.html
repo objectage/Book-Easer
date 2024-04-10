@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <a href="/hotelmanager/logout">Logout</a>
+    <a href="/hotelmanager/home">Back to Home</a>
+    <h2>Your Bookings</h2>
+    <div th:if="${bookings.isEmpty()}">
+        <p>You have no bookings.</p>
+    </div>
+    <div th:unless="${bookings.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Room Type</th>
+                    <th>Start Date</th>
+                    <th>No. of Days</th>
+                    <th>Total Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.id}"></td>
+                    <td th:text="${booking.room.type}"></td>
+                    <td th:text="${booking.startDate}"></td>
+                    <td th:text="${booking.noOfDays}"></td>
+                    <td th:text="${booking.totalPrice}"></td>
+                    <td>
+                        <a th:href="@{/booking_success/{id}(id=${booking.id})}">View Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

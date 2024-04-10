@@ -241,4 +241,17 @@ public class MainController {
         return new ByteArrayInputStream(out.toByteArray());
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model, HttpSession session) {
+        List<Booking> bookings = mainService.getBookingsByCustomerID(((Customer) session.getAttribute("customer")).getId());
+        model.addAttribute("bookings", bookings);
+        return "Main/dashboard";
+    }
+
 }
