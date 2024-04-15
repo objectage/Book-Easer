@@ -22,6 +22,7 @@
             <tr th:each="room : ${room}">
                 <!-- <td th:text="${room.hotel.id}"></td> -->
                 <td th:text="${room.id}"></td>
+                <td th:text="${room.hotel.name}"></td>
                 <td th:text="${room.type}"></td>
                 <td th:text="${room.availability ? 'Available' : 'Unavailable'}"></td>
                 <td th:text="${room.price}"></td>

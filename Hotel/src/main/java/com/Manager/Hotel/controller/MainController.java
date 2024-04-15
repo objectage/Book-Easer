@@ -18,6 +18,7 @@ import java.util.Optional;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
@@ -30,16 +31,12 @@ import javax.servlet.http.HttpSession;
 import com.Manager.Hotel.repository.BookingRepository;
 import com.Manager.Hotel.service.RoomService;
 import com.Manager.Hotel.service.CustomerService;
-// import com.Manager.Hotel.service.HotelService;
 import com.Manager.Hotel.service.MainService;
 import com.Manager.Hotel.entity.Booking;
-// import com.Manager.Hotel.entity.Booking;
 import com.Manager.Hotel.entity.Customer;
 import com.Manager.Hotel.entity.Hotel;
 import com.Manager.Hotel.entity.Room;
-import com.Manager.Hotel.helper.DateConvert;
-import com.Manager.Hotel.repository.RoomRepository;
-import com.Manager.Hotel.repository.CustomerRepository;
+
 
 @Controller
 public class MainController {
@@ -61,20 +58,6 @@ public class MainController {
         model.addAttribute("customer", new Customer());
         return "Main/login";
     }
-
-    // @RequestMapping(value="/login", method = RequestMethod.POST)
-    // public String login(Model model, @ModelAttribute("customer") Customer customer) {
-    //     customer = mainService.login(customer);
-    //     if (customer != null) {
-    //         System.out.println(customer.getId());
-    //         model.addAttribute("customer",customer);
-    //         model.addAttribute("customerId",customer.getId());
-    //         return "redirect:/home";
-    //     } else {
-    //         model.addAttribute("error", "Invalid email or password");
-    //         return "redirect:/login";
-    //     }
-    // }
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String login(HttpSession session, @ModelAttribute("customer") Customer customer) {
@@ -230,8 +213,13 @@ public class MainController {
         Booking booking = mainService.getBooking(bookingId);
     
         document.add(new Paragraph("Booking Receipt"));
+        document.add(new AreaBreak());
+        document.add(new Paragraph("Booking ID: " + booking.getId()));
         document.add(new Paragraph("Customer: " + booking.getCustomer().getName()));
+        document.add(new Paragraph("Email: " + booking.getCustomer().getEmail()));
+        document.add(new Paragraph("Hotel: " + booking.getRoom().getHotel().getName()));
         document.add(new Paragraph("Room Type: " + booking.getRoom().getType()));
+        document.add(new Paragraph("Price per night: " + booking.getRoom().getPrice()));
         document.add(new Paragraph("Total Price: " + booking.getTotalPrice()));
         document.add(new Paragraph("Check In Date: " + booking.getStartDate().toString()));
         document.add(new Paragraph("Duration: " + booking.getNoOfDays() + " nights"));
