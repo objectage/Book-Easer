@@ -23,5 +23,11 @@ public class Customer {
     private Long id;
     private String name;
     private String password;
-    private String email;    
+    private String email;   
+    private Boolean sub; 
+
+
+    public Boolean isSubscribed() {
+        return sub;
+    }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Publish Message</title>
+</head>
+<body>
+    <h1>Publish Message to Customers</h1>
+    
+    <form th:action="@{/publisher}" method="post">
+        <div>
+            <label for="msg">Message:</label>
+            <input type="text" id="msg" name="msg" required />
+        </div>
+        <div>
+            <button type="submit">Publish</button>
+        </div>
+    </form>
+    
+    <a th:href="@{/admin}">Back to Admin Dashboard</a>
+</body>
+</html>

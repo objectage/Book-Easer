@@ -36,6 +36,8 @@ import com.Manager.Hotel.entity.Booking;
 import com.Manager.Hotel.entity.Customer;
 import com.Manager.Hotel.entity.Hotel;
 import com.Manager.Hotel.entity.Room;
+// import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -82,6 +84,7 @@ public class MainController {
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public String register(Model model, @ModelAttribute("customer") Customer customer) {
         if (customer != null && customerService.getCustomerByEmail(customer.getEmail()) == null){
+            customer.setSub(false);
             customer = mainService.createAccount(customer);
             return "redirect:/login";
         } else {
@@ -238,6 +241,7 @@ public class MainController {
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
         List<Booking> bookings = mainService.getBookingsByCustomerID(((Customer) session.getAttribute("customer")).getId());
+        model.addAttribute("customer", session.getAttribute("customer"));
         model.addAttribute("bookings", bookings);
         return "Main/dashboard";
     }
@@ -245,6 +249,34 @@ public class MainController {
     @GetMapping("/admin")
     public String admin(Model model) {
         return "Admin/adminhome";
+    }
+
+    @PostMapping("/subscribe")
+    public String subcribe(Model model, HttpSession session){
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (customer != null) {
+            mainService.setSubcriptionCustomer(customer.getId(), true);
+        }
+        return "redirect:/dashboard";
+    }
+
+    @PostMapping("/unsubscribe")
+    public String unsubcribe(Model model, HttpSession session){
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (customer != null) {
+            mainService.setSubcriptionCustomer(customer.getId(), false);
+        }
+        return "redirect:/dashboard";
+    }
+
+    @PostMapping("/hotelmanager/subscription")
+    public String toggleSubscription(Model model, HttpSession session) {
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (customer != null) {
+            System.out.println(customer.isSubscribed());
+            session.setAttribute("customer",mainService.setSubcriptionCustomer(customer.getId(),!customer.isSubscribed())); 
+        }
+        return "redirect:/dashboard"; 
     }
 
 }

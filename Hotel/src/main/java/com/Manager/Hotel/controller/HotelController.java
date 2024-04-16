@@ -84,4 +84,6 @@ public class HotelController {
             hotelService.deleteHotel(hotel.getId());
             return "redirect:/hotel";
         }
+
+        
 }

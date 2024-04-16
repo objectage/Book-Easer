@@ -96,9 +96,14 @@ public class MainService {
         return bookingRepository.findByCustomerId(customerID);
     }
 
+    public Customer setSubcriptionCustomer(Long customerID, Boolean sub) {
+        Customer customer = customerRepository.findById(customerID).orElse(null);
+        if (customer != null) {
+            customer.setSub(sub);
+            System.out.println(customer.isSubscribed());
+            return customerRepository.save(customer);
+        }
+        return customer;
+    }
 
-
-    
-
-    
 }

@@ -8,6 +8,30 @@
     <h1>Dashboard</h1>
     <a href="/hotelmanager/logout">Logout</a>
     <a href="/hotelmanager/home">Back to Home</a>
+
+    <div th:if="${customer != null}">
+        
+            <div>
+                <label for="ID">ID</label>
+                <input type="id" id="id" name="id" th:value="${customer.id}" readonly />
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" th:value="${customer.email}" readonly />
+            </div>
+
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" th:value="${customer.name}" readonly />
+            </div>
+        <form th:action="@{/hotelmanager/subscription}" method="post">
+            <button type="submit" th:text="${customer.sub ? 'Unsubscribe' : 'Subscribe'}"></button>
+        </form>
+    </div>
+    <div th:unless="${customer != null}">
+        <p>You need to log in to view this page.</p>
+    </div>
+    
     <h2>Your Bookings</h2>
     <div th:if="${bookings.isEmpty()}">
         <p>You have no bookings.</p>
