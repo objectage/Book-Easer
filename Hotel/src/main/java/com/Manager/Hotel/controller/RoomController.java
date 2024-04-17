@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
 import com.Manager.Hotel.entity.Room;
 import com.Manager.Hotel.service.RoomService;
+
 
 @Controller
 public class RoomController {
@@ -88,5 +90,12 @@ public class RoomController {
         model.addAttribute("room", roomService.getRoomsByType(room.getType()));
         return "Room/room";
     }
+
+    @PostMapping("/room/updateAvailability")
+    public String updateAvailability(@RequestParam("id") Long roomId) {
+        roomService.updateRoomAvailability(roomId);
+        return "redirect:/room";
+    }
+
     
 }

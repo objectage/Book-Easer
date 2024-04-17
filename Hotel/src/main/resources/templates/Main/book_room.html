@@ -3,6 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Book a Room</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    function checkRoomAvailability() {
+        var roomId = document.getElementById('roomid').value;
+        var startDate = document.getElementById('startDate').value;
+        var noOfDays = document.getElementById('noOfDays').value;
+
+        if (startDate && noOfDays) {
+            $.post('/hotelmanager/datecheck', { roomId: roomId, startDate: startDate, noOfDays: noOfDays }, function(data) {
+                if (data) {
+                    document.getElementById('submitBtn').disabled = false;
+                    alert('The room is available!');
+                } else {
+                    document.getElementById('submitBtn').disabled = true;
+                    alert('The room is not available on these dates.');
+                }
+            });
+        } else {
+            alert('Please fill in both date and number of days.');
+        }
+    }
+    </script>
 </head>
 <body>
 <h1>Book a Room</h1>
@@ -11,15 +33,13 @@
     <div>
         <label>Room ID:</label>
         <span th:text="${booking.room.id}"></span>
-        <input type="hidden" name="roomid" th:value="${booking.room.id}" />
-
+        <input type="hidden" id="roomid" name="roomid" th:value="${booking.room.id}" />
     </div>
     
     <div>
         <label>Customer ID:</label>
         <span th:text="${booking.customer.id}"></span>
-        <input type="hidden" name="customerid" th:value="${booking.customer.id}" />
-
+        <input type="hidden" id="customerid" name="customerid" th:value="${booking.customer.id}" />
     </div>
 
     <div>
@@ -33,10 +53,11 @@
     </div>
 
     <div>
-        <button type="submit">Book Now</button>
+        <button type="button" onclick="checkRoomAvailability()">Check Room Availability</button>
+        <button type="submit" id="submitBtn" disabled>Book Now</button>
     </div>
 </form>
 
-<a th:href="@{/rooms}">Back to Rooms</a>
+<a th:href="@{/home/room}">Back to Rooms</a>
 </body>
 </html>

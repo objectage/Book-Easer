@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
@@ -24,9 +25,9 @@ import com.itextpdf.io.source.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import javax.servlet.http.HttpServletResponse;
-
-
 import javax.servlet.http.HttpSession;
+
+import java.time.LocalDate;
 
 import com.Manager.Hotel.repository.BookingRepository;
 import com.Manager.Hotel.service.RoomService;
@@ -132,6 +133,19 @@ public class MainController {
         model.addAttribute("booking", booking);
         return "Main/book_room";
 }
+
+    @PostMapping("/datecheck")
+    @ResponseBody
+    public boolean checkRoomAvailability(
+        @RequestParam("roomId") Long roomId,
+        @RequestParam("startDate") String startDate,
+        @RequestParam("noOfDays") int noOfDays) {
+        LocalDate start = LocalDate.parse(startDate);
+        
+        return mainService.checkAvailability(roomId, start, noOfDays);
+    }
+
+
 
     @PostMapping("/home/confirmBooking")
     public String bookingSuccess(Model model, @ModelAttribute Booking booking,

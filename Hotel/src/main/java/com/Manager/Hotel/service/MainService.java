@@ -4,6 +4,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.Instant;
+
 import com.Manager.Hotel.repository.BookingRepository;
 import com.Manager.Hotel.repository.RoomRepository;
 import com.Manager.Hotel.repository.CustomerRepository;
@@ -64,6 +72,36 @@ public class MainService {
         }
         return null;
     }
+
+
+    public LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
+        return Instant.ofEpochMilli(dateToConvert.getTime())
+          .atZone(ZoneId.systemDefault())
+          .toLocalDate();
+    }
+
+    public boolean checkAvailability(Long roomId, LocalDate startDate, int noOfDays) {
+        Room room = roomRepository.findById(roomId).orElse(null);
+        if (room != null) {
+            LocalDate checkOut = startDate.plusDays(noOfDays);
+            List<Booking> bookings = bookingRepository.findByRoomId(roomId);
+            for (Booking booking : bookings) {
+                System.out.println(booking.getStartDate());
+                System.out.println(booking.getNoOfDays());
+                LocalDate existingStart = convertToLocalDateViaMilisecond(booking.getStartDate());
+                LocalDate existingEnd = existingStart.plusDays(booking.getNoOfDays());
+
+                if ((existingStart.isBefore(checkOut) && existingEnd.isAfter(startDate)) ||
+                    existingStart.equals(startDate) ||
+                    existingEnd.equals(checkOut)) {
+                    return false;  
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     public Booking updateBookingCheckInStatus(Long id, Boolean checkInStatus) {
         Booking booking = bookingRepository.findById(id).orElse(null);

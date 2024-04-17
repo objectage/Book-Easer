@@ -56,13 +56,16 @@ public class RoomService {
         return roomRepository.findByTypeAndAvailability(type, availability);
     }
 
-    public Room updateRoomAvailability(Long id, Boolean availability) {
+    public Room updateRoomAvailability(Long id) {
         Room room = roomRepository.findById(id).orElse(null);
         if (room != null) {
-            room.setAvailability(availability);
+            boolean newAvailability = !room.getAvailability();
+            room.setAvailability(newAvailability);
+            System.out.println("Updating room availability to: " + newAvailability);
             return roomRepository.save(room);
         }
         return null;
     }
+    
 
 }

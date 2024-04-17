@@ -24,16 +24,21 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
+
     @Temporal(javax.persistence.TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+
     private int noOfDays;
+
     private double totalPrice;
     private boolean paymentStatus;
     private boolean checkInStatus;
