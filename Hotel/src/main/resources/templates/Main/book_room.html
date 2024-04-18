@@ -24,6 +24,23 @@
             alert('Please fill in both date and number of days.');
         }
     }
+
+    function checkCoupon() {
+    var couponCode = document.getElementById('couponCode').value;
+    if (couponCode) {
+        $.post('/hotelmanager/couponcheck', { couponCode: couponCode }, function(response) {
+            console.log(response);  // Confirm this outputs an object with { isValid: boolean }
+            if (response.isValid) {
+                alert('The coupon is valid!');
+            } else {
+                alert('The coupon is not valid.');
+            }
+        }, 'json').fail(function(xhr, status, error) {
+            alert('Failed to check the coupon: ' + error);
+        });
+    }
+}
+
     </script>
 </head>
 <body>
@@ -53,9 +70,18 @@
     </div>
 
     <div>
+        <label for="couponCode">Coupon Code:</label>
+        <input type="text" id="couponCode" name="couponCode" />
+    </div>
+
+    <div>
         <button type="button" onclick="checkRoomAvailability()">Check Room Availability</button>
+        <button type="button" onclick="checkCoupon()">Check Coupon Validity</button>
+
         <button type="submit" id="submitBtn" disabled>Book Now</button>
     </div>
+
+   
 </form>
 
 <a th:href="@{/home/room}">Back to Rooms</a>

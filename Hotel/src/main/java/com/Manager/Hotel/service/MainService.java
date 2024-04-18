@@ -16,10 +16,12 @@ import com.Manager.Hotel.repository.BookingRepository;
 import com.Manager.Hotel.repository.RoomRepository;
 import com.Manager.Hotel.repository.CustomerRepository;
 import com.Manager.Hotel.repository.HotelRepository;
+import com.Manager.Hotel.repository.CouponRepository;
 import com.Manager.Hotel.entity.Booking;
 import com.Manager.Hotel.entity.Customer;
 import com.Manager.Hotel.entity.Hotel;
 import com.Manager.Hotel.entity.Room;
+import com.Manager.Hotel.entity.Coupon;
 
 @Service
 public class MainService {
@@ -35,6 +37,9 @@ public class MainService {
 
     @Autowired
     private HotelRepository hotelRepository;
+
+    @Autowired
+    private CouponRepository couponRepository;
   
     public Customer createAccount(Customer customer) {  
         return customerRepository.save(customer);
@@ -102,6 +107,19 @@ public class MainService {
         return false;
     }
 
+    public boolean checkCouponValidity(String code) {
+        Coupon coupon = couponRepository.findByCode(code);
+        
+        if (coupon != null) {
+            System.out.println(coupon.getCode());
+            return true;
+        }
+        return false;
+    }
+
+        
+    
+
 
     public Booking updateBookingCheckInStatus(Long id, Boolean checkInStatus) {
         Booking booking = bookingRepository.findById(id).orElse(null);
@@ -142,6 +160,10 @@ public class MainService {
             return customerRepository.save(customer);
         }
         return customer;
+    }
+
+    public Coupon getCoupon(String code) {
+        return couponRepository.findByCode(code);
     }
 
 }

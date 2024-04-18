@@ -26,17 +26,23 @@ import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 
 import com.Manager.Hotel.repository.BookingRepository;
 import com.Manager.Hotel.service.RoomService;
+import com.Manager.Hotel.service.CouponService;
 import com.Manager.Hotel.service.CustomerService;
 import com.Manager.Hotel.service.MainService;
 import com.Manager.Hotel.entity.Booking;
 import com.Manager.Hotel.entity.Customer;
 import com.Manager.Hotel.entity.Hotel;
 import com.Manager.Hotel.entity.Room;
+import com.Manager.Hotel.entity.Coupon;
+import com.Manager.Hotel.strategy.PricingStrategy;
+
+
 // import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -55,6 +61,9 @@ public class MainController {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private CouponService couponService;
    
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -145,38 +154,95 @@ public class MainController {
         return mainService.checkAvailability(roomId, start, noOfDays);
     }
 
+    @PostMapping("/couponcheck")
+    public ResponseEntity<?> checkCoupon(@RequestParam("couponCode") String couponCode) {
+        boolean isValid = mainService.checkCouponValidity(couponCode);
+        return ResponseEntity.ok(new CouponCheckResponse(isValid));
+    }
+
+    static class CouponCheckResponse {
+        private boolean isValid;
+
+        public CouponCheckResponse(boolean isValid) {
+            this.isValid = isValid;
+        }
+
+        public boolean getIsValid() {
+            return isValid;
+        }
+    }
+
+
+
+
+    // @PostMapping("/home/confirmBooking")
+    // public String bookingSuccess(Model model, @ModelAttribute Booking booking,
+    //                             @RequestParam("startDate") String startDate,
+    //                             @RequestParam("noOfDays") int noOfDays,
+    //                             @RequestParam("roomid") Long roomId, 
+    //                             @RequestParam("customerid") Long customerId) {
+    //     try {
+    //         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    //         Date date = formatter.parse(startDate);
+    //         booking.setStartDate(date);
+    //         System.out.println(booking.getStartDate());
+
+    //         Room room = roomService.getRoom(roomId); 
+    //         booking.setRoom(room);
+    //         System.out.println(booking.getRoom().getId());
+
+    //         Customer customer = customerService.getCustomer(customerId);
+    //         booking.setCustomer(customer);
+    //         System.out.println(booking.getCustomer().getId());
+            
+    //         if(room == null || customer == null) {
+    //             model.addAttribute("error", "Room or Customer not found");
+    //             return "Main/book_room";
+    //         }
+            
+    //         booking.setNoOfDays(noOfDays);
+    //         booking.setTotalPrice(room.getPrice() * noOfDays);
+
+    //         System.out.println(booking.getNoOfDays());
+    //         System.out.println(booking.getTotalPrice());
+
+    //         mainService.makeBooking(booking);
+    //         model.addAttribute("booking", booking);
+    //         return "redirect:/booking_success/" + booking.getId();
+    //     } catch (Exception e) {
+    //         model.addAttribute("error", "Failed to parse start date");
+    //         return "Main/book_room";
+    //     }
+    // }
 
 
     @PostMapping("/home/confirmBooking")
     public String bookingSuccess(Model model, @ModelAttribute Booking booking,
-                                @RequestParam("startDate") String startDate,
-                                @RequestParam("noOfDays") int noOfDays,
-                                @RequestParam("roomid") Long roomId, 
-                                @RequestParam("customerid") Long customerId) {
+                                 @RequestParam("startDate") String startDate,
+                                 @RequestParam("noOfDays") int noOfDays,
+                                 @RequestParam("roomid") Long roomId,
+                                 @RequestParam("customerid") Long customerId,
+                                 @RequestParam(value = "couponCode", required = false, defaultValue = "") String couponCode) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = formatter.parse(startDate);
             booking.setStartDate(date);
-            System.out.println(booking.getStartDate());
 
-            Room room = roomService.getRoom(roomId); 
-            booking.setRoom(room);
-            System.out.println(booking.getRoom().getId());
-
+            Room room = roomService.getRoom(roomId);
             Customer customer = customerService.getCustomer(customerId);
-            booking.setCustomer(customer);
-            System.out.println(booking.getCustomer().getId());
-            
-            if(room == null || customer == null) {
+
+            if (room == null || customer == null) {
                 model.addAttribute("error", "Room or Customer not found");
                 return "Main/book_room";
             }
-            
-            booking.setNoOfDays(noOfDays);
-            booking.setTotalPrice(room.getPrice() * noOfDays);
 
-            System.out.println(booking.getNoOfDays());
-            System.out.println(booking.getTotalPrice());
+            booking.setRoom(room);
+            booking.setCustomer(customer);
+            booking.setNoOfDays(noOfDays);
+
+            PricingStrategy strategy = couponService.getPricingStrategy(couponCode);
+            double totalPrice = strategy.calculatePrice(room.getPrice(), noOfDays);
+            booking.setTotalPrice(totalPrice);
 
             mainService.makeBooking(booking);
             model.addAttribute("booking", booking);

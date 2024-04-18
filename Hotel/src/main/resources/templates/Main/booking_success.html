@@ -10,7 +10,8 @@
     <p>Thank you for your booking.</p>
     <p><strong>Customer:</strong> <span th:text="${booking.customer.Name}"></span></p>
     <p><strong>Room Type:</strong> <span th:text="${booking.room.Type}"></span></p>
-    <p><strong>Dates:</strong> <span th:text="${booking.startDate}"></span> to <span th:text="${booking.noOfDays}"></span></p>
+    <p><strong>Dates:</strong> <span th:text="${booking.startDate}"></span> for <span th:text="${booking.noOfDays}"></span> days</p>
+    <!-- write for end date -->
     <p><strong>Total Price:</strong> <span th:text="${booking.totalPrice}"></span></p>
     <a th:href="@{/download_receipt/{bookingId}(bookingId=${booking.id})}" >Download Receipt as PDF</a>
 </div>

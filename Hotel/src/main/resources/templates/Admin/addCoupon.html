@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Coupon</title>
+</head>
+<body>
+<h1>Add New Coupon</h1>
+<form th:action="@{/addCoupon}" th:object="${coupon}" method="post">
+    <div>
+        <label for="code">Code:</label>
+        <input type="text" id="code" name="code" th:field="*{code}" required />
+    </div>
+    <div>
+        <label for="discount">Discount (%):</label>
+        <input type="number" id="discount" name="discount" th:field="*{discount}" required />
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+<a href="/hotelmanager/coupon">Back to Coupons</a>
+</body>
+</html>

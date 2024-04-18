@@ -58,9 +58,16 @@
         
             <!-- Payment Button/Status -->
             <td th:if="${booking.checkOutStatus and !booking.paymentStatus}">
-                <form th:action="@{/booking/pay/{id}(id=${booking.id})}" method="post">
+                <form th:action="@{/booking/pay/{id}(id=${booking.id})}" method="post" onsubmit="return confirmPayment()">
                     <button type="submit">Pay</button>
                 </form>
+                
+                <script>
+                function confirmPayment() {
+                    // Display a confirmation dialog
+                    return confirm('Customer is paying now. Do you want to proceed?');
+                }
+                </script>
             </td>
             <td th:if="${booking.paymentStatus}">
                 <span>Paid</span>
