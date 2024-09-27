@@ -1,4 +1,4 @@
-# Hotel Management System
+# Book-Easer
 
 ## Overview
 
